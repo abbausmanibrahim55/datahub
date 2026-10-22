@@ -1,1 +1,84 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUI DATA HUB</title>
+<style>
+body{font-family:Arial;background:#0a0e27;color:white;margin:0;padding:20px}
+.header{background:linear-gradient(135deg,#667eea,#764ba2);padding:30px;border-radius:15px;text-align:center}
+h1{margin:0;font-size:32px}
+.card{background:#1a1f3d;margin:15px 0;padding:20px;border-radius:12px;border:1px solid #2a335a}
+.btn{background:#00ff88;color:#000;padding:12px 20px;border:none;border-radius:8px;width:100%;font-weight:bold;font-size:16px;margin-top:10px}
+input,select{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:none;box-sizing:border-box}
+.price{color:#00ff88;font-weight:bold;font-size:20px}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>AUI DATA HUB</h1>
+<p>Fast & Affordable Data - ATBU Azare</p>
+<p>WhatsApp: 0810 123 4567</p>
+</div>
+
+<div class="card">
+<h3>🟡 MTN Data</h3>
+<p><span class="price">500MB - ₦150</span></p>
+<p><span class="price">1GB - ₦280</span></p>
+<p><span class="price">2GB - ₦560</span></p>
+<p><span class="price">3GB - ₦840</span></p>
+<button class="btn" onclick="order('MTN')">Buy MTN Now</button>
+</div>
+
+<div class="card">
+<h3>🔴 Airtel Data</h3>
+<p><span class="price">1GB - ₦300</span></p>
+<p><span class="price">2GB - ₦600</span></p>
+<p><span class="price">5GB - ₦1400</span></p>
+<button class="btn" onclick="order('Airtel')">Buy Airtel Now</button>
+</div>
+
+<div class="card">
+<h3>🟢 Glo Data</h3>
+<p><span class="price">1GB - ₦270</span></p>
+<p><span class="price">2.5GB - ₦650</span></p>
+<button class="btn" onclick="order('Glo')">Buy Glo Now</button>
+</div>
+
+<div class="card">
+<h3>🔵 9mobile Data</h3>
+<p><span class="price">1GB - ₦250</span></p>
+<p><span class="price">3GB - ₦700</span></p>
+<button class="btn" onclick="order('9mobile')">Buy 9mobile Now</button>
+</div>
+
+<div class="card">
+<h2>Order Form</h2>
+<input id="phone" placeholder="Your Phone Number (e.g 080...)">
+<select id="network">
+<option>MTN</option>
+<option>Airtel</option>
+<option>Glo</option>
+<option>9mobile</option>
+</select>
+<select id="plan">
+<option>500MB - ₦150</option>
+<option>1GB - ₦280</option>
+<option>2GB - ₦560</option>
+<option>3GB - ₦840</option>
+<option>5GB - ₦1400</option>
+</select>
+<button class="btn" onclick="sendWhatsApp()">Send Order via WhatsApp</button>
+</div>
+
+<script>
+function order(net){
+document.getElementById('network').value=net;
+window.scrollTo(0,document.body.scrollHeight);
+}
+function sendWhatsApp(){
+let p=document.getElementById('phone').value;
+let n=document.getElementById('network').value;
+let pl=document.getElementById('plan').value;
+if(!p){
