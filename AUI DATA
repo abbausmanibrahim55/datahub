@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataHub NG - Sayar da Data</title>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#eef4ff;padding:15px}
+.box{background:white;border-radius:20px;padding:20px;max-width:400px;margin:auto;box-shadow:0 4px 15px #ccc}
+h2{color:#0a2a8a;text-align:center}
+.net{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:15px 0}
+.net div{border:2px solid #ddd;border-radius:12px;padding:10px;text-align:center;cursor:pointer}
+.net div.active{border-color:#0066ff;background:#e6f0ff}
+select,input{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:1px solid #ccc;font-size:16px}
+button{background:#0066ff;color:white;border:none;padding:16px;width:100%;border-radius:12px;font-size:18px;font-weight:bold;margin-top:10px}
+.price{background:#f5f5f5;padding:12px;border-radius:10px;margin:10px 0;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>DataHub NG</h2>
+<p style="text-align:center;color:gray">Sayo Data cikin Sauki</p>
+<div class="net">
+<div class="active" onclick="setNet(this,'MTN')">MTN</div>
+<div onclick="setNet(this,'Glo')">Glo</div>
+<div onclick="setNet(this,'Airtel')">Airtel</div>
+<div onclick="setNet(this,'9mobile')">9mobile</div>
+</div>
+<select id="plan">
+<option value="300">1GB - 1 Day - N300</option>
+<option value="600" selected>3GB - 7 Days - N600</option>
+<option value="1000">5GB - 30 Days - N1000</option>
+<option value="2000">10GB - 30 Days - N2000</option>
+</select>
+<input id="phone" type="tel" placeholder="Lambar waya: 080...">
+<input id="email" type="email" placeholder="Email: abba@gmail.com">
+<div class="price"><span>Network:</span><span id="netName">MTN</span></div>
+<div class="price"><span>Za ka biya:</span><b id="showPrice">N600</b></div>
+<button onclick="pay()">Biya da Paystack</button>
+<p style="text-align:center;font-size:12px;margin-top:10px;color:gray">Secured by Paystack</p>
+</div>
+<script>
+let network='MTN';
+function setNet(el,n){document.querySelectorAll('.net div').forEach(d=>d.classList.remove('active'));el.classList.add('active');network=n;document.getElementById('netName').innerText=n}
+document.getElementById('plan').onchange=e=>{document.getElementById('showPrice').innerText='N'+e.target.value}
+function pay(){
+ let phone=document.getElementById('phone').value;
+ let email=document.getElementById('email').value;
+ let amount=document.getElementById('plan').value;
+ if(!phone||!email){alert('Cika lambar waya da email!');return}
+ let handler=PaystackPop.setup({
+  key:'pk_test_xxxxxxxxxxxxxxxxxx',
+  email:email,
+  amount:amount*100,
+  currency:'NGN',
+  metadata:{custom_fields:[{display_name:"Phone",variable_name:"phone",value:phone},{display_name:"Network",variable_name:"network",value:network}]},
+  callback:function(res){alert('Biya yayi nasara! '+res.reference+' Lamba: '+phone+' Zamu tura maka Data!');},
+  onClose:function(){alert('Ka soke biyan kudi')}
+ });
+ handler.openIframe();
+}
+</script>
+</body>
+</html>
